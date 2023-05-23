@@ -18,23 +18,18 @@ interface Job {
 
 export default {
   async setup() {
-    const route = useRoute();
-    const paramId = ref(route.params.id);
-    const jobsData = ref<Job[]>();
+    const route = useRoute()
+    const paramId = ref(route.params.id)
+    const jobsData = ref<Job[]>([])
 
-    const { data: jobs } = await useFetch<Job[]>(
-      `https://62fe320941165d66bfbabe7e.mockapi.io/apt/v1/jobs/`,
-      {
-        server: false
-      }
-    );
+    const resp = await $fetch<Job[]>(`https://62fe320941165d66bfbabe7e.mockapi.io/apt/v1/jobs/`)
 
-    jobsData.value = jobs.value || []
-    
+    jobsData.value = resp
+
     return {
       paramId,
       jobsData,
     }
-  }
+  },
 }
 </script>
