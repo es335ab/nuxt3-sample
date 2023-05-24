@@ -22,9 +22,14 @@ export default {
     const paramId = ref(route.params.id)
     const jobsData = ref<Job[]>([])
 
-    const resp = await $fetch<Job[]>(`https://62fe320941165d66bfbabe7e.mockapi.io/apt/v1/jobs/`)
+    const { data: jobs } = await useFetch<Job[]>(
+      `https://62fe320941165d66bfbabe7e.mockapi.io/apt/v1/jobs/`,
+      {
+        server: false,
+      }
+    )
 
-    jobsData.value = resp
+    jobsData.value = jobs.value || []
 
     return {
       paramId,
