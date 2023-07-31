@@ -16,6 +16,7 @@
       </div>
     </li>
   </ul>
+  <button @click="send">送信</button>
 </template>
 
 <script lang="ts">
@@ -42,6 +43,10 @@ export default {
       console.log(`onClick Next!!${id}`)
       const qurrentQuestion = questionsData.value.find((q) => q.id === id)
       console.log(`qurrentQuestionAnswer: ${qurrentQuestion?.answer}`)
+      if (!qurrentQuestion?.answer) {
+        alert("inValid!!!")
+        return
+      }
       const index = questionsData.value.findIndex((q) => q.id === currentId.value)
       const nextQuestion = questionsData.value[index + 1]
       currentId.value = nextQuestion.id
@@ -53,6 +58,14 @@ export default {
       const index = questionsData.value.findIndex((q) => q.id === currentId.value)
       const nextQuestion = questionsData.value[index - 1]
       currentId.value = nextQuestion.id
+    }
+
+    const send = () => {
+      const answer = questionsData.value.map((q) => ({
+        answer: q.answer,
+        id: q.id,
+      }))
+      console.log({ answer })
     }
 
     const { data: questions } = await useFetch<Question[]>(
@@ -80,6 +93,7 @@ export default {
       currentId,
       toNext,
       toBack,
+      send,
     }
   },
 }
