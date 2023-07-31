@@ -40,8 +40,8 @@ export default {
     const toNext = (id: string) => {
       // TODO 最後のidがcurrentの場合を考慮
       console.log(`onClick Next!!${id}`)
-      const qurrentQuestionAnswer = questionsData.value.find((q) => q.id === id)
-      console.log(`qurrentQuestionAnswer: ${qurrentQuestionAnswer}`)
+      const qurrentQuestion = questionsData.value.find((q) => q.id === id)
+      console.log(`qurrentQuestionAnswer: ${qurrentQuestion?.answer}`)
       const index = questionsData.value.findIndex((q) => q.id === currentId.value)
       const nextQuestion = questionsData.value[index + 1]
       currentId.value = nextQuestion.id
